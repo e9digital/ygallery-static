@@ -1,6 +1,6 @@
 ssh_user    = "ubuntu@50.16.230.36"
 remote_root = "/srv/www/ygallery"
-ssh_key     = "~/.ec2/gsg-keypair.pem"
+ssh_key     = "/Users/rey/.ec2/gsg-keypair.pem"
 dropbox_dir = ""
 
 desc "Runs preview"
@@ -18,7 +18,7 @@ end
 desc "Clear and generate new styles, build, and deploy"
 task :deploy => :build do
   puts "** deploying site"
-  system("rsync -avz --rsh \"ssh -i #{ssh_key}\" --delete site/ #{ssh_user}:#{remote_root}")
+  system("rsync -avzO --rsh \"ssh -i #{ssh_key}\" --delete site/ #{ssh_user}:#{remote_root}")
 end
 
 namespace :dropbox do
